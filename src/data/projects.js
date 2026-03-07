@@ -8,10 +8,10 @@ export const siteConfig = {
   // TODO: replace with your tagline
   tagline: "Chasing knowledge from first principles. Building and dissecting AI systems.",
   // TODO: replace with your email
-  email: "adithyan@example.com",
+  email: "dhanushadithyanp@gmail.com",
   // TODO: replace with your GitHub URL
   github: "https://github.com/Adithyan0122",
-  linkedin: "https://linkedin.com/in/adithyan-aiml", // Placeholder check?
+  linkedin: "https://www.linkedin.com/in/pdhanushadithyan/",
 };
 
 export const aboutData = {
