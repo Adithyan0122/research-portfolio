@@ -1,0 +1,220 @@
+.timeline {
+    position: relative;
+    padding: 40px 0;
+}
+
+/* ── The central winding path ── */
+.timeline__rail {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+}
+
+.timeline__rail_completed {
+    background: linear-gradient(to bottom, var(--amber), var(--teal));
+    box-shadow: 0 0 12px var(--amber-glow);
+}
+
+.timeline__rail_locked {
+    background: repeating-linear-gradient(to bottom,
+            var(--text-dim) 0px,
+            var(--text-dim) 6px,
+            transparent 6px,
+            transparent 12px);
+}
+
+/* ── Node row ── */
+.node {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0;
+    padding: 28px 0;
+}
+
+.node_left {
+    flex-direction: row;
+}
+
+.node_right {
+    flex-direction: row-reverse;
+}
+
+/* ── Node dot (center circle) ── */
+.node__dot_wrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.node__dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.node__dot_completed {
+    background: var(--amber);
+    color: var(--bg-primary);
+    border-color: var(--amber);
+    box-shadow: 0 0 20px var(--amber-glow);
+    cursor: pointer;
+}
+
+.node__dot_completed:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px var(--amber-glow), 0 0 60px var(--amber-dim);
+}
+
+.node__dot_inprogress {
+    background: transparent;
+    color: var(--teal);
+    border-color: var(--teal);
+    animation: pulse 2s ease-in-out infinite;
+    cursor: pointer;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px var(--teal-dim);
+    }
+
+    50% {
+        box-shadow: 0 0 24px var(--teal-glow);
+    }
+}
+
+.node__dot_locked {
+    background: var(--bg-card);
+    color: var(--text-dim);
+    border-color: var(--text-dim);
+    cursor: default;
+}
+
+/* ── Node content card ── */
+.node__content {
+    width: calc(50% - 40px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 22px 26px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.node_left .node__content {
+    margin-right: auto;
+    text-align: right;
+}
+
+.node_right .node__content {
+    margin-left: auto;
+    text-align: left;
+}
+
+.node__content_completed:hover {
+    border-color: var(--amber-dim);
+    background: var(--bg-card-hover);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.node__content_locked {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.node__content_inprogress {
+    border-color: var(--teal-dim);
+}
+
+.node__content_inprogress:hover {
+    border-color: var(--teal);
+    background: var(--bg-card-hover);
+}
+
+.node__version {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--amber);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.node__version_locked {
+    color: var(--text-dim);
+}
+
+.node__version_inprogress {
+    color: var(--teal);
+}
+
+.node__subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.node__desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.node__badge {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.node__badge_locked {
+    background: var(--bg-primary);
+    color: var(--text-dim);
+    border: 1px solid var(--text-dim);
+}
+
+.node__badge_inprogress {
+    background: var(--teal-dim);
+    color: var(--teal);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    .timeline__rail {
+        left: 20px;
+    }
+
+    .node {
+        flex-direction: row !important;
+        padding-left: 48px;
+    }
+
+    .node__dot_wrap {
+        left: 20px;
+    }
+
+    .node__content {
+        width: 100%;
+        text-align: left !important;
+    }
+}

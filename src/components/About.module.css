@@ -1,0 +1,290 @@
+.about {
+    padding: 120px 0;
+}
+
+.about__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ── Identity ── */
+.identity {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.identity__photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: var(--text-dim);
+    overflow: hidden;
+}
+
+.identity__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.identity__info h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.identity__info p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 550px;
+}
+
+/* ── Education Timeline ── */
+.edu {
+    margin-bottom: 80px;
+}
+
+.edu__rail {
+    position: relative;
+    padding-left: 32px;
+}
+
+.edu__rail::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--amber), var(--teal));
+}
+
+.edu__item {
+    position: relative;
+    padding-bottom: 36px;
+}
+
+.edu__item:last-child {
+    padding-bottom: 0;
+}
+
+.edu__dot {
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--amber);
+    border: 2px solid var(--bg-primary);
+    box-shadow: 0 0 10px var(--amber-glow);
+}
+
+.edu__institution {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.edu__degree {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.edu__years {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.edu__highlight {
+    font-size: 13px;
+    color: var(--teal);
+    font-style: italic;
+}
+
+/* ── Experience Cards ── */
+.exp {
+    margin-bottom: 80px;
+}
+
+.exp__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.exp__card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    transition: all 0.3s ease;
+}
+
+.exp__card:hover {
+    border-color: var(--amber-dim);
+    transform: translateY(-2px);
+}
+
+.exp__company {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.exp__role {
+    font-size: 14px;
+    color: var(--amber);
+    margin-bottom: 2px;
+}
+
+.exp__duration {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+}
+
+.exp__bullets {
+    list-style: none;
+    padding: 0;
+}
+
+.exp__bullets li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 6px;
+}
+
+.exp__bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+    font-weight: 700;
+}
+
+/* ── Achievement Badges ── */
+.achievements {
+    margin-bottom: 80px;
+}
+
+.achievements__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 22px;
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    border-color: var(--amber-dim);
+    transform: translateY(-2px);
+}
+
+.badge_locked {
+    opacity: 0.35;
+    filter: grayscale(0.8);
+}
+
+.badge__icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.badge__text h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.badge__text p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.badge__lock {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-left: auto;
+}
+
+/* ── Hobbies ── */
+.hobbies {
+    margin-bottom: 0;
+}
+
+.hobbies__strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+}
+
+.hobbies__strip::-webkit-scrollbar {
+    height: 4px;
+}
+
+.hobby {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    white-space: nowrap;
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.hobby:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--amber-dim);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.hobby__icon {
+    font-size: 20px;
+}
+
+@media (max-width: 640px) {
+    .identity {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .identity__info p {
+        max-width: 100%;
+    }
+}

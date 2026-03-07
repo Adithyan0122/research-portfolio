@@ -1,0 +1,35 @@
+.page {
+  min-height: 100vh;
+}
+
+/* ── Series Section ── */
+.series {
+  padding: 100px 0;
+  position: relative;
+}
+
+.series::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.series__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.series__header {
+  margin-bottom: 48px;
+}
