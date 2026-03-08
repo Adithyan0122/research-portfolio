@@ -76,6 +76,7 @@ export const aboutData = {
 export const seriesData = [
   {
     slug: "rag",
+    title: "Vector-2-Graph RAG",
     description:
       "A 10-part deep dive into Retrieval-Augmented Generation — evolving from raw vector retrieval to structured graph-based knowledge synthesis. Every version ships. Every lesson is documented.",
     githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG",
@@ -230,6 +231,7 @@ Precision   = useful_chunks / retrieved_chunks`,
   },
   {
     slug: "mcp-supply-chain",
+    title: "MCP To A2A",
     description:
       "A 10-part series building toward an AI-powered supply chain system using Model Context Protocol (MCP) and Agent-to-Agent (A2A) orchestration.",
     githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a",
@@ -302,14 +304,32 @@ except Exception as e:
       {
         version: "v0.4",
         subtitle: "Raw A2A",
-        status: "locked",
-        whatChanged: "Two agents talk to each other: Inventory Agent pings Order Agent via A2A.",
-        whatYouPublish: "Side-by-side: A2A handshake vs. direct API call",
+        status: "completed",
+        whatChanged: "Introduced Agent-to-Agent (A2A) communication where the Inventory Agent autonomously pings the Order Agent to place restock orders without human intervention.",
+        whatYouPublish: "v0.4 — Raw A2A: Two Agents Talking to Each Other",
+        keyInsight: "A2A overhead per call is essentially zero (0.3ms). The only real cost is the one-time discovery step (~49ms). Once an agent knows where another agent is, talking to it is just as fast as a direct API call.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.4-Raw-A2A",
+        analysisPath: "/results/mcp_v0.4.md",
+        architecture: {
+          description: "Two agents run independently as HTTP servers (FastAPI). The Inventory Agent fetches the Order Agent's card at `/.well-known/agent.json` (discovery) before sending restock requests to `/a2a` (task execution).",
+          imagePath: "/images/mcp_v0.4_architecture.png",
+        },
+        codeSnippet: `# A2A Task Request format
+{
+  "task": "place_order",
+  "product": "Laptop",
+  "quantity": 20
+}
+
+# A2A Discovery: Fetching the Agent Card
+response = await client.get(f"{ORDER_AGENT_URL}/.well-known/agent.json")
+agent_card = response.json()`,
+        result: "The Inventory Agent successfully detected a problem and fixed it by talking to another agent. Benchmarks showed A2A discovery takes ~49ms (one-time) and task calls take ~24ms, matching direct API speeds.",
       },
       {
         version: "v0.5",
         subtitle: "Agent Cards",
-        status: "locked",
+        status: "in-progress",
         whatChanged: "Build proper Agent Cards for 3 agents, test discovery between them.",
         whatYouPublish: "\"How Agent Cards work — and where they break\"",
       },
