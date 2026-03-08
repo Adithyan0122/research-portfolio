@@ -103,7 +103,7 @@ function TimelineNode({ version, index, side, isLastCompleted, totalNodes, onSel
             <div className={contentClass} onClick={s !== "locked" && s !== "in-progress" ? onSelect : undefined}>
                 <p className={versionClass}>{version.version}</p>
                 <h3 className={styles.node__subtitle}>{version.subtitle}</h3>
-                <p className={styles.node__desc}>{version.whatChanged}</p>
+                {s !== "locked" && <p className={styles.node__desc}>{version.whatChanged}</p>}
                 {s === "locked" && (
                     <span className={`${styles.node__badge} ${styles.node__badge_locked}`}>
                         Coming Soon

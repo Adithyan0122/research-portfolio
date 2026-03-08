@@ -7,10 +7,11 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import styles from "./ProjectModal.module.css";
 
-const TABS = ["Overview", "Math", "Code", "Results"];
+const DEFAULT_TABS = ["Overview", "Math", "Code", "Results"];
+const ARCH_TABS = ["Overview", "Architecture", "Math", "Code", "Results"];
 
 export default function ProjectModal({ version, onClose }) {
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState("Overview");
 
     // Close on Escape
     useEffect(() => {
@@ -53,23 +54,26 @@ export default function ProjectModal({ version, onClose }) {
 
                     {/* Tabs */}
                     <div className={styles.tabs}>
-                        {TABS.map((tab, i) => (
-                            <button
-                                key={tab}
-                                className={`${styles.tab} ${i === activeTab ? styles.tab_active : ""}`}
-                                onClick={() => setActiveTab(i)}
-                            >
-                                {tab}
-                            </button>
-                        ))}
+                        {(version.architecture ? ARCH_TABS : DEFAULT_TABS)
+                            .filter(tab => tab !== "Math" || version.pdfPath)
+                            .map((tab) => (
+                                <button
+                                    key={tab}
+                                    className={`${styles.tab} ${activeTab === tab ? styles.tab_active : ""}`}
+                                    onClick={() => setActiveTab(tab)}
+                                >
+                                    {tab}
+                                </button>
+                            ))}
                     </div>
 
                     {/* Tab Content */}
                     <div className={styles.tab_content}>
-                        {activeTab === 0 && <OverviewTab version={version} />}
-                        {activeTab === 1 && <MathTab version={version} />}
-                        {activeTab === 2 && <CodeTab version={version} />}
-                        {activeTab === 3 && <ResultsTab version={version} />}
+                        {activeTab === "Overview" && <OverviewTab version={version} />}
+                        {activeTab === "Architecture" && <ArchitectureTab version={version} />}
+                        {activeTab === "Math" && <MathTab version={version} />}
+                        {activeTab === "Code" && <CodeTab version={version} />}
+                        {activeTab === "Results" && <ResultsTab version={version} />}
                     </div>
                 </motion.div>
             </motion.div>
@@ -91,6 +95,27 @@ function OverviewTab({ version }) {
                     <h4>Key Insight</h4>
                     <p className={styles.highlight}>{version.keyInsight}</p>
                 </>
+            )}
+        </>
+    );
+}
+
+function ArchitectureTab({ version }) {
+    if (!version.architecture) return <p>No architecture details provided.</p>;
+
+    return (
+        <>
+            <h4>System Architecture</h4>
+            <p>{version.architecture.description}</p>
+
+            {version.architecture.imagePath && (
+                <div style={{ marginTop: 24, marginBottom: 24, borderRadius: 8, overflow: 'hidden', border: '1px solid var(--border)' }}>
+                    <img
+                        src={version.architecture.imagePath}
+                        alt="Architecture Diagram"
+                        style={{ width: "100%", height: "auto", display: "block" }}
+                    />
+                </div>
             )}
         </>
     );

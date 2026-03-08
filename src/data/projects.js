@@ -76,9 +76,9 @@ export const aboutData = {
 export const seriesData = [
   {
     slug: "rag",
-    title: "RAG Systems",
+    title: "Vector-2-Graph RAG",
     description:
-      "A 10-part deep dive into Retrieval-Augmented Generation — from a raw NumPy prototype to a full knowledge-graph-powered system. Every version ships. Every lesson is documented.",
+      "A 10-part deep dive into Retrieval-Augmented Generation — evolving from raw vector retrieval to structured graph-based knowledge synthesis. Every version ships. Every lesson is documented.",
     versions: [
       {
         version: "v0.1",
@@ -225,6 +225,96 @@ Precision   = useful_chunks / retrieved_chunks`,
         pdfPath: "",
         codeSnippet: "",
         result: "",
+      },
+    ],
+  },
+  {
+    slug: "mcp-supply-chain",
+    title: "MCP To A2A",
+    description:
+      "A 10-part series building toward an AI-powered supply chain system using Model Context Protocol (MCP) and Agent-to-Agent (A2A) orchestration.",
+    versions: [
+      {
+        version: "v0.1",
+        subtitle: "Raw MCP",
+        status: "completed",
+        whatChanged: "Built a local MCP server from scratch connecting Claude Desktop to a SQLite database using stdio — no frameworks, no cloud.",
+        whatYouPublish: "I built my first MCP server from scratch. Here's what surprised me.",
+        keyInsight: "MCP doesn't use HTTP; it uses stdio pipes (stdin/stdout). This makes it entirely offline and incredibly fast, but requires careful handling of stdout logs.",
+        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.1-Baby-RAG",
+        architecture: {
+          description: "The system uses a 3-layer architecture: Claude Desktop (AI Interface) <-> server.py (MCP Server) <-> inventory.db (SQLite). Communication happens over JSON-RPC via stdio pipes.",
+          imagePath: "/images/mcp_v0.1_architecture.png",
+        },
+        codeSnippet: `# Always log to stderr to avoid breaking the MCP pipe
+print("debug message", file=sys.stderr)
+
+# Use absolute paths for the database
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inventory.db")`,
+        result: "Successfully exposed `get_inventory` and `get_product` tools to Claude Desktop. Achieved $0 cost and 100% local execution.",
+      },
+      {
+        version: "v0.2",
+        subtitle: "MCP Tools",
+        status: "locked",
+        whatChanged: "Expand the server with 4 proper tools: read_stock, write_stock, search_product, and update_price.",
+        whatYouPublish: "Benchmark table: tool call latency vs. data size",
+      },
+      {
+        version: "v0.3",
+        subtitle: "MCP Server",
+        status: "locked",
+        whatChanged: "Real MCP server with PostgreSQL, error handling, auth, deployed on Docker.",
+        whatYouPublish: "Demo video + failure analysis writeup",
+      },
+      {
+        version: "v0.4",
+        subtitle: "Raw A2A",
+        status: "locked",
+        whatChanged: "Two agents talk to each other: Inventory Agent pings Order Agent via A2A.",
+        whatYouPublish: "Side-by-side: A2A handshake vs. direct API call",
+      },
+      {
+        version: "v0.5",
+        subtitle: "Agent Cards",
+        status: "locked",
+        whatChanged: "Build proper Agent Cards for 3 agents, test discovery between them.",
+        whatYouPublish: "\"How Agent Cards work — and where they break\"",
+      },
+      {
+        version: "v0.6",
+        subtitle: "MCP + A2A Together",
+        status: "locked",
+        whatChanged: "Inventory Agent (MCP -> DB) triggers Order Agent (A2A) automatically.",
+        whatYouPublish: "Architecture diagram + flow walkthrough video",
+      },
+      {
+        version: "v0.7",
+        subtitle: "Supplier Agents",
+        status: "locked",
+        whatChanged: "Build 3 mock Supplier Agents that respond to bid requests via A2A.",
+        whatYouPublish: "Comparison: which supplier agent design scaled best",
+      },
+      {
+        version: "v0.8",
+        subtitle: "Pricing Agent",
+        status: "locked",
+        whatChanged: "Dynamic pricing logic: connects via MCP to market API, adjusts in real-time.",
+        whatYouPublish: "Latency vs. accuracy tradeoff curve",
+      },
+      {
+        version: "v0.9",
+        subtitle: "Orchestrator",
+        status: "locked",
+        whatChanged: "One master agent coordinates all others, handles failures gracefully.",
+        whatYouPublish: "\"The scorecard\" — every agent graded on reliability",
+      },
+      {
+        version: "v1.0",
+        subtitle: "Full Supply Chain",
+        status: "locked",
+        whatChanged: "Complete system: Inventory + Pricing + Order + Supplier + Finance + Orchestrator.",
+        whatYouPublish: "End-to-end demo: product goes out of stock -> restocked automatically, zero human input",
       },
     ],
   },
