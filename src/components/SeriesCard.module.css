@@ -39,6 +39,24 @@
     opacity: 1;
 }
 
+.card::after {
+    content: '∑';
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    font-family: var(--font-math, 'Crimson Text', 'Georgia', serif);
+    font-size: 64px;
+    color: var(--text-primary);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    line-height: 1;
+}
+
+.card:hover::after {
+    opacity: 0.03;
+}
+
 .card__header {
     display: flex;
     align-items: center;

@@ -27,7 +27,7 @@ export default function About() {
             <div className={styles.about__inner}>
                 {/* ── Identity ── */}
                 <FadeIn>
-                    <p className="section-label">// ABOUT</p>
+                    <p className="section-label">§ About</p>
                     <div className={styles.identity}>
                         <div className={styles.identity__photo}>
                             {/* TODO: replace with <img src={identity.photo} alt={identity.name} /> when you add a photo */}
@@ -43,7 +43,7 @@ export default function About() {
                 {/* ── Education ── */}
                 <FadeIn delay={0.1}>
                     <div className={styles.edu}>
-                        <p className="section-label">// EDUCATION</p>
+                        <p className="section-label">§ Education</p>
                         <div className={styles.edu__rail}>
                             {education.map((edu, i) => (
                                 <motion.div
@@ -68,7 +68,7 @@ export default function About() {
                 {/* ── Experience ── */}
                 <div className={styles.exp}>
                     <FadeIn>
-                        <p className="section-label">// EXPERIENCE</p>
+                        <p className="section-label">§ Experience</p>
                     </FadeIn>
                     <div className={styles.exp__grid}>
                         {experience.map((exp, i) => (
@@ -96,7 +96,7 @@ export default function About() {
                 {/* ── Achievements ── */}
                 <div className={styles.achievements}>
                     <FadeIn>
-                        <p className="section-label">// ACHIEVEMENTS</p>
+                        <p className="section-label">§ Achievements</p>
                     </FadeIn>
                     <div className={styles.achievements__grid}>
                         {achievements.map((a, i) => (
@@ -122,7 +122,7 @@ export default function About() {
                 {/* ── Hobbies ── */}
                 <FadeIn>
                     <div className={styles.hobbies}>
-                        <p className="section-label">// HOBBIES</p>
+                        <p className="section-label">§ Hobbies</p>
                         <div className={styles.hobbies__strip}>
                             {hobbies.map((h, i) => (
                                 <div key={i} className={styles.hobby}>

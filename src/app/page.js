@@ -16,7 +16,7 @@ export default function HomePage() {
       <section className={styles.series} id="major-projects" style={{ paddingBottom: '0px' }}>
         <div className={styles.series__inner}>
           <div className={styles.series__header}>
-            <p className="section-label" style={{ color: 'var(--teal)' }}>// MAJOR PROJECTS</p>
+            <p className="section-label" style={{ color: 'var(--teal)' }}>§ Major Projects</p>
             <h2 className="section-title">Standalone Research</h2>
             <p className="section-subtitle">
               Comprehensive end-to-end AI systems and investigations. Click to view architecture and analysis.
@@ -34,7 +34,7 @@ export default function HomePage() {
       <section className={styles.series} id="series">
         <div className={styles.series__inner}>
           <div className={styles.series__header}>
-            <p className="section-label">// RESEARCH THREADS</p>
+            <p className="section-label">§ Research Threads</p>
             <h2 className="section-title">Project Series</h2>
             <p className="section-subtitle">
               Each series is a multi-version deep dive. Click a card to explore the full timeline.

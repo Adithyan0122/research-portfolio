@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
 
 :root {
   /* ── Background ── */
@@ -32,6 +32,7 @@
   /* ── Fonts ── */
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-math: 'Crimson Text', 'Georgia', serif;
 
   /* ── Sizing ── */
   --max-width: 1200px;
@@ -73,7 +74,8 @@ button {
   color: inherit;
 }
 
-code, pre {
+code,
+pre {
   font-family: var(--font-mono);
 }
 
@@ -86,13 +88,16 @@ code, pre {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--text-dim);
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }

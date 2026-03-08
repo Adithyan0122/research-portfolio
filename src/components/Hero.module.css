@@ -77,14 +77,48 @@
     background-clip: text;
 }
 
-.hero__tagline {
-    font-size: clamp(16px, 2.5vw, 22px);
-    font-weight: 300;
-    color: var(--text-secondary);
+/* ── Strang Quote Container ── */
+.hero__quote_container {
+    position: relative;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 48px;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero__quote_mark {
+    font-family: var(--font-math, 'Crimson Text', 'Georgia', serif);
+    font-size: 36px;
+    color: var(--amber);
+    opacity: 0.4;
+    line-height: 1;
+    user-select: none;
+}
+
+.hero__tagline {
+    font-family: var(--font-math, 'Crimson Text', 'Georgia', serif);
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-secondary);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.7;
+    padding: 4px 0;
+}
+
+.hero__quote_attribution {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-top: 8px;
 }
 
 .hero__cta {

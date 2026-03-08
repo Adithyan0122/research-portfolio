@@ -30,7 +30,7 @@ export default function Footer() {
                     </a>
                 </div>
                 <p className={styles.footer__tagline}>
-                    Every version shipped. Every lesson documented.
+                    Every version shipped. Every lesson documented. ∇L → 0
                 </p>
             </div>
         </footer>

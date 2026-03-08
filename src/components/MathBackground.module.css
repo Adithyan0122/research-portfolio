@@ -1,0 +1,42 @@
+.mathBg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.mathSymbol {
+    position: absolute;
+    font-family: var(--font-math, 'Crimson Text', 'Georgia', serif);
+    color: var(--text-primary);
+    white-space: nowrap;
+    user-select: none;
+    animation: mathFloat linear infinite;
+    will-change: transform, opacity;
+}
+
+@keyframes mathFloat {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: var(--math-opacity, 0.04);
+    }
+
+    25% {
+        opacity: calc(var(--math-opacity, 0.04) * 1.5);
+    }
+
+    50% {
+        transform: translateY(-80px) rotate(5deg);
+        opacity: var(--math-opacity, 0.04);
+    }
+
+    75% {
+        opacity: calc(var(--math-opacity, 0.04) * 0.6);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: var(--math-opacity, 0.04);
+    }
+}
