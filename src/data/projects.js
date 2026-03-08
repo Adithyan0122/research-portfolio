@@ -403,14 +403,28 @@ with ThreadPoolExecutor() as executor:
       {
         version: "v0.8",
         subtitle: "Pricing Agent",
-        status: "in-progress",
-        whatChanged: "Dynamic pricing logic: connects via MCP to market API, adjusts in real-time.",
-        whatYouPublish: "Latency vs. accuracy tradeoff curve",
+        status: "completed",
+        whatChanged: "Built a Pricing Agent that watches a live market price feed (random walk), detects drift > 5%, and automatically synchronizes inventory prices via A2A.",
+        whatYouPublish: "v0.8 — Pricing Agent: Dynamic Repricing with Latency vs Accuracy Tradeoff",
+        keyInsight: "Repricing accuracy degrades non-linearly with the polling interval. Threshold filtering is the primary lever for controlling A2A call volume, while the interval controls responsiveness. A 5s interval was found to be the 'sweet spot' for 2% market volatility.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.8-Pricing-Agent",
+        analysisPath: "/results/mcp_v0.8.md",
+        architecture: {
+          description: "A dynamic repricing loop. The Pricing Agent polls a simulated Market API (stochastic random walk) every N seconds. If the market price drifts >5% from the database, it fires an A2A update to the Inventory Agent.",
+          imagePath: "/images/mcp_v0.8_architecture.png",
+        },
+        codeSnippet: `# Random Walk Formula
+new_price = old_price * (1 + drift + volatility * random.gauss(0, 1))
+
+# A2A Drift Update
+if abs(market_price - db_price) / db_price > THRESHOLD:
+    await send_a2a_update(product, market_price)`,
+        result: "Benchmarked 2s, 5s, and 10s intervals. Found that a 2s interval yields 5.97% error while 10s jumps to 19.65% error. A2A protocol latency remains flat at ~49ms regardless of frequency.",
       },
       {
         version: "v0.9",
         subtitle: "Orchestrator",
-        status: "locked",
+        status: "in-progress",
         whatChanged: "One master agent coordinates all others, handles failures gracefully.",
         whatYouPublish: "\"The scorecard\" — every agent graded on reliability",
       },
