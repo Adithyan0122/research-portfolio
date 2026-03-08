@@ -275,10 +275,29 @@ latency_ms = (time.time() - start_time) * 1000`,
       },
       {
         version: "v0.3",
-        subtitle: "MCP Server",
-        status: "locked",
-        whatChanged: "Real MCP server with PostgreSQL, error handling, auth, deployed on Docker.",
-        whatYouPublish: "Demo video + failure analysis writeup",
+        subtitle: "Production-Grade MCP",
+        status: "completed",
+        whatChanged: "Scaled the v0.2 system into a production-ready server with connection pooling, structured logging, API key authentication, and full Docker containerization.",
+        whatYouPublish: "v0.3 — MCP Server: Production-Grade Claude + PostgreSQL in Docker",
+        keyInsight: "Transitioning from one-connection-per-call to a managed pool (SimpleConnectionPool) eliminates DB overhead at scale. Structured logging to stderr ensures Claude remains connected while providing deep visibility into server health.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.3-MCP-Server",
+        architecture: {
+          description: "The v0.3 architecture introduces a Dockerized environment where the MCP server and PostgreSQL 16 live in a private network. It features a connection pool (min=1, max=5) and a 3-layer error handling system that catches validation, database, and unexpected exceptions without crashing the stdio pipe.",
+          imagePath: "/images/mcp_v0.3_architecture.png",
+        },
+        codeSnippet: `# Connection Pooling & Three-Layer Error Handling
+db_pool = psycopg2.pool.SimpleConnectionPool(minconn=1, maxconn=5, **DB_CONFIG)
+
+try:
+    with db_pool.getconn() as conn:
+        # ... logic ...
+except ValueError as e:
+    log.warning(f"[tool] Validation error: {e}")
+except psycopg2.Error as e:
+    log.error(f"[tool] Database error: {e}")
+except Exception as e:
+    log.error(f"[tool] Unexpected error: {e}")`,
+        result: "Successfully containerized the entire stack. Validated that DB connection drops are handled gracefully by the pooling logic, returning structured JSON errors to Claude instead of crashing the process.",
       },
       {
         version: "v0.4",
