@@ -20,7 +20,22 @@ export default function MajorProjectCard({ project, index }) {
                 <div className={styles.card} onClick={() => setIsModalOpen(true)}>
                     <div className={styles.card__header}>
                         <h3 className={styles.card__title}>{project.title}</h3>
-                        <span className={styles.card__arrow}>↗</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            {project.githubUrl && (
+                                <a
+                                    href={project.githubUrl}
+                                    className={styles.github_link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="View on GitHub"
+                                    style={{ position: 'static', padding: '4px' }}
+                                >
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.28 1.15-.28 2.35 0 3.5-.73 1.02-1.08 2.25-1 3.5 0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
+                                </a>
+                            )}
+                            <span className={styles.card__arrow}>↗</span>
+                        </div>
                     </div>
                     <p className={styles.card__desc}>{project.description}</p>
                     <div className={styles.card__progress_label} style={{ marginTop: 'auto', paddingTop: '16px' }}>

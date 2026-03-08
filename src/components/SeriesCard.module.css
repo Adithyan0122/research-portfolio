@@ -70,6 +70,7 @@
     margin-bottom: 24px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -109,4 +110,30 @@
     background: linear-gradient(90deg, var(--amber), var(--amber-bright));
     box-shadow: 0 0 12px var(--amber-glow);
     transition: width 1s ease-out;
+}
+
+.card_wrapper {
+    position: relative;
+    height: 100%;
+}
+
+.github_link {
+    position: absolute;
+    top: 24px;
+    right: 56px;
+    /* Space for the arrow */
+    color: var(--text-dim);
+    transition: all 0.3s ease;
+    z-index: 10;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.github_link:hover {
+    color: var(--amber);
+    background: rgba(255, 180, 0, 0.1);
+    transform: scale(1.1);
 }

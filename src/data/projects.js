@@ -76,9 +76,9 @@ export const aboutData = {
 export const seriesData = [
   {
     slug: "rag",
-    title: "Vector-2-Graph RAG",
     description:
       "A 10-part deep dive into Retrieval-Augmented Generation — evolving from raw vector retrieval to structured graph-based knowledge synthesis. Every version ships. Every lesson is documented.",
+    githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG",
     versions: [
       {
         version: "v0.1",
@@ -230,9 +230,9 @@ Precision   = useful_chunks / retrieved_chunks`,
   },
   {
     slug: "mcp-supply-chain",
-    title: "MCP To A2A",
     description:
       "A 10-part series building toward an AI-powered supply chain system using Model Context Protocol (MCP) and Agent-to-Agent (A2A) orchestration.",
+    githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a",
     versions: [
       {
         version: "v0.1",
@@ -241,7 +241,7 @@ Precision   = useful_chunks / retrieved_chunks`,
         whatChanged: "Built a local MCP server from scratch connecting Claude Desktop to a SQLite database using stdio — no frameworks, no cloud.",
         whatYouPublish: "I built my first MCP server from scratch. Here's what surprised me.",
         keyInsight: "MCP doesn't use HTTP; it uses stdio pipes (stdin/stdout). This makes it entirely offline and incredibly fast, but requires careful handling of stdout logs.",
-        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.1-Baby-RAG",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.1-Raw-MCP",
         architecture: {
           description: "The system uses a 3-layer architecture: Claude Desktop (AI Interface) <-> server.py (MCP Server) <-> inventory.db (SQLite). Communication happens over JSON-RPC via stdio pipes.",
           imagePath: "/images/mcp_v0.1_architecture.png",
@@ -256,9 +256,22 @@ DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "inventory.db
       {
         version: "v0.2",
         subtitle: "MCP Tools",
-        status: "locked",
-        whatChanged: "Expand the server with 4 proper tools: read_stock, write_stock, search_product, and update_price.",
+        status: "completed",
+        whatChanged: "Expand the raw MCP server from v0.1 into a proper 4-tool system backed by PostgreSQL. Every tool call is benchmarked with real latency data.",
         whatYouPublish: "Benchmark table: tool call latency vs. data size",
+        keyInsight: "Structured error handling and database indexing are critical for scaling MCP tools. Write operations (UPDATE) are slightly heavier than reads due to WAL and row locking.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.2-MCP-Tools",
+        analysisPath: "/results/mcp_v0.2.md",
+        architecture: {
+          description: "Transitioned from SQLite to PostgreSQL 16. The server now exposes 4 tools (read_stock, write_stock, search_product, update_price) and logs latency for every operation.",
+          imagePath: "/images/mcp_v0.2_architecture.png",
+        },
+        codeSnippet: `# PostgreSQL connection and timing
+start_time = time.time()
+cur.execute("SELECT * FROM inventory WHERE product = %s", (product,))
+result = cur.fetchone()
+latency_ms = (time.time() - start_time) * 1000`,
+        result: "All 4 tools responded in under 9ms locally. search_product (ILIKE) is the most sensitive to data size without indexing.",
       },
       {
         version: "v0.3",
