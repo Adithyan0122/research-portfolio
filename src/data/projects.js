@@ -359,14 +359,30 @@ if not agent_card_cache.get(agent_url):
       {
         version: "v0.6",
         subtitle: "MCP + A2A Together",
-        status: "in-progress",
-        whatChanged: "Inventory Agent (MCP -> DB) triggers Order Agent (A2A) automatically.",
-        whatYouPublish: "Architecture diagram + flow walkthrough video",
+        status: "completed",
+        whatChanged: "For the first time, combined MCP and A2A. Claude Desktop calls an MCP tool that automatically triggers a full A2A restock pipeline across multiple agents.",
+        whatYouPublish: "v0.6 — MCP + A2A Together: Claude Triggers a Real Pipeline",
+        keyInsight: "Claude becomes an orchestrator without knowing it. MCP handles the human-to-AI interface, while A2A handles the AI-to-agent coordination. The tool becomes a bridge to autonomous workflows.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.6-MCP-A2A",
+        analysisPath: "/results/mcp_v0.6.md",
+        architecture: {
+          description: "One user message to Claude triggers an MCP tool call (`get_inventory`). The MCP server reads the DB and, upon detecting low stock, launches A2A alerts to the Notification Agent and orders to the Order Agent.",
+          imagePath: "/images/mcp_v0.6_architecture.png",
+        },
+        codeSnippet: `# The Bridge: MCP Tool calls A2A Pipeline
+@mcp.tool()
+async def get_inventory():
+    items = db.query("SELECT * FROM inventory")
+    for item in items:
+        if item.quantity < THRESHOLD:
+            # Fire and forget A2A pipeline
+            trigger_restock_pipeline(item.product, item.quantity)`,
+        result: "Successfully fully automated the supply chain entry loop. One question in Claude Desktop results in 4 emails and 2 orders executed autonomously in ~20s wall time.",
       },
       {
         version: "v0.7",
         subtitle: "Supplier Agents",
-        status: "locked",
+        status: "in-progress",
         whatChanged: "Build 3 mock Supplier Agents that respond to bid requests via A2A.",
         whatYouPublish: "Comparison: which supplier agent design scaled best",
       },
