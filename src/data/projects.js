@@ -75,165 +75,10 @@ export const aboutData = {
 
 export const seriesData = [
   {
-    slug: "rag",
-    title: "Vector-2-Graph RAG",
-    description:
-      "A 10-part deep dive into Retrieval-Augmented Generation — evolving from raw vector retrieval to structured graph-based knowledge synthesis. Every version ships. Every lesson is documented.",
-    githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG",
-    versions: [
-      {
-        version: "v0.1",
-        subtitle: "Baby RAG",
-        status: "completed",
-        whatChanged: "Raw implementation, no frameworks. Built TF-IDF, cosine similarity, and chunking from scratch using only NumPy.",
-        whatYouPublish: "I built RAG with just NumPy. Here's what I learned.",
-        keyInsight: "Understanding the math behind retrieval is more valuable than any framework. TF-IDF alone gets you surprisingly far on domain-specific text.",
-        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.1-Baby-RAG",
-        pdfPath: "/pdfs/rag/v0.1.pdf",
-        analysisPath: "/results/v0.1.md",
-        codeSnippet: `# Cosine Similarity — the heart of retrieval
-def cosine_similarity(vec_a, vec_b):
-    dot  = np.dot(vec_a, vec_b)
-    norm = np.linalg.norm(vec_a) * np.linalg.norm(vec_b)
-    return 0.0 if norm == 0 else dot / norm`,
-        result: "Achieved 0.35 average cosine similarity on the demo corpus with pure TF-IDF vectors. Faithfulness score of 1.0 — the LLM stays grounded when given good context.",
-      },
-      {
-        version: "v0.2",
-        subtitle: "Chunking Comparator",
-        status: "completed",
-        whatChanged: "Tested 4 chunking strategies — fixed-size, sentence-based, paragraph-based, and semantic. Built a side-by-side comparator UI.",
-        whatYouPublish: "Benchmark table: strategy vs. retrieval accuracy",
-        keyInsight: "Paragraph-based splitting beats Fixed-size for structured documents when using sparse retrievers (TF-IDF). Semantic chunking requires neural embeddings to truly outshine simple splits.",
-        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.2-Chunking-Comparator",
-        pdfPath: "/pdfs/rag/v0.2.pdf",
-        analysisPath: "/results/v0.2.md",
-        codeSnippet: `# Multi-strategy chunking
-def chunk(self, text, strategy="fixed_size"):
-    if strategy == "paragraph":
-        return re.split(r'\\n\\s*\\n', text.strip())
-    # ... other strategies`,
-        result: "Paragraph-based strategy achieved 100% Hit Rate on the demo corpus. Fixed-size (baseline) hit 20%, while Sentence/Semantic splits failed due to sparse vector collisions.",
-      },
-      {
-        version: "v0.3",
-        subtitle: "Full App & Persistence",
-        status: "completed",
-        whatChanged: "Modernized into a robust app with PDF support, disk-backed persistence (NumPy/JSON), and Neural Embeddings as the default.",
-        whatYouPublish: "Neural retrieval vs. TF-IDF baseline + Persistence breakdown",
-        keyInsight: "Neural embeddings (MiniLM) solved the 0% Hit Rate bottleneck for small semantic chunks. Persistence reduced 'warm-up' latency from 10s to 2ms.",
-        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.3-Full-App",
-        pdfPath: "/pdfs/rag/v0.3.pdf",
-        analysisPath: "/results/v0.3.md",
-        codeSnippet: `# Persistent Vector Store
-def save(self, path):
-    np.save(os.path.join(path, "matrix.npy"), self.matrix)
-    with open(os.path.join(path, "metadata.json"), "w") as f:
-        json.dump(meta, f)`,
-        result: "Neural retrieval achieved 100% Hit Rate on paragraph splits. Persistence enabled instant knowledge base reloading across sessions.",
-      },
-      {
-        version: "v0.4",
-        subtitle: "Hybrid Search",
-        status: "in-progress",
-        whatChanged: "Added BM25 alongside dense retrieval, fused results using Reciprocal Rank Fusion (RRF).",
-        whatYouPublish: "Precision/recall comparison chart",
-        keyInsight: "BM25 catches exact keyword matches that dense retrieval misses. RRF fusion gives you the best of both worlds with zero learned parameters.",
-        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.4-Hybrid-Search", // Assumed path
-        pdfPath: "/pdfs/rag/v0.4.pdf",
-        codeSnippet: `# Reciprocal Rank Fusion
-RRF_score(d) = Σ 1 / (k + rank_i(d))
-# k=60 is standard, merge rankings from BM25 + dense`,
-        result: "Hybrid search improved recall@5 by 31% over dense-only retrieval. The fusion was especially effective on technical queries with specific terminology.",
-      },
-      {
-        version: "v0.5",
-        subtitle: "Query Transform",
-        status: "locked",
-        whatChanged: "Implemented HyDE (Hypothetical Document Embeddings), multi-query expansion, and query rewriting using the LLM.",
-        whatYouPublish: "Side-by-side query result comparisons",
-        keyInsight: "HyDE is magic for vague queries — generating a hypothetical answer and searching for it retrieves far better context than the raw question.",
-        githubUrl: "",
-        pdfPath: "/pdfs/rag/v0.5.pdf",
-        codeSnippet: `# HyDE: search with a hypothetical answer
-hypothetical = llm.generate(f"Answer: {query}")
-results = retriever.search(embed(hypothetical))`,
-        result: "HyDE improved MRR by 0.18 on ambiguous queries. Multi-query helped on complex questions but added 2-3x latency.",
-      },
-      {
-        version: "v0.6",
-        subtitle: "Reranking",
-        status: "locked",
-        whatChanged: "Added a cross-encoder reranker on top of the bi-encoder retriever. The reranker scores each (query, chunk) pair jointly.",
-        whatYouPublish: "Reranker impact on top-1 accuracy",
-        keyInsight: "Cross-encoders are slow but devastatingly accurate. Retrieve 20 with bi-encoder, rerank to top 3 with cross-encoder — best of both worlds.",
-        githubUrl: "",
-        pdfPath: "/pdfs/rag/v0.6.pdf",
-        codeSnippet: `# Two-stage retrieval
-candidates = bi_encoder.retrieve(query, k=20)
-reranked = cross_encoder.rerank(query, candidates, k=3)`,
-        result: "Top-1 accuracy jumped from 52% to 78% after reranking. The 200ms reranking latency was acceptable for the quality gain.",
-      },
-      {
-        version: "v0.7",
-        subtitle: "Evaluation",
-        status: "locked",
-        whatChanged: "Implemented RAGAS-style evaluation metrics across all previous versions. Built an automated benchmark suite.",
-        whatYouPublish: 'The "scorecard" — every version graded',
-        keyInsight: "You can't improve what you don't measure. Automated evaluation revealed that v0.5 (query transform) was actually the biggest single improvement.",
-        githubUrl: "",
-        pdfPath: "/pdfs/rag/v0.7.pdf",
-        codeSnippet: `# The 5 Core Metrics
-Hit Rate    = correct_in_top_k / total_queries
-MRR         = mean(1 / rank_of_correct)
-Faithfulness = supported_facts / total_facts
-Relevance   = cosine(answer, question)
-Precision   = useful_chunks / retrieved_chunks`,
-        result: "Complete scorecard across v0.1–v0.6. v0.5+v0.6 combo achieved: Hit Rate 0.91, MRR 0.84, Faithfulness 0.96.",
-      },
-      {
-        version: "v0.8",
-        subtitle: "Hierarchical",
-        status: "locked",
-        whatChanged: "Multi-document, large corpus. Hierarchical indexing with document-level and chunk-level retrieval.",
-        whatYouPublish: "Scaling curve: flat vs hierarchical at N docs",
-        keyInsight: "",
-        githubUrl: "",
-        pdfPath: "",
-        codeSnippet: "",
-        result: "",
-      },
-      {
-        version: "v0.9",
-        subtitle: "Agentic",
-        status: "locked",
-        whatChanged: "Iterative retrieval, self-correction. The system decides when to re-retrieve and when to answer.",
-        whatYouPublish: "Latency vs. accuracy tradeoff curve",
-        keyInsight: "",
-        githubUrl: "",
-        pdfPath: "",
-        codeSnippet: "",
-        result: "",
-      },
-      {
-        version: "v1.0",
-        subtitle: "GraphRAG",
-        status: "locked",
-        whatChanged: "Knowledge graph + vector hybrid. Entity extraction, relation mapping, graph traversal for retrieval.",
-        whatYouPublish: "Taxonomy of when graph beats vector",
-        keyInsight: "",
-        githubUrl: "",
-        pdfPath: "",
-        codeSnippet: "",
-        result: "",
-      },
-    ],
-  },
-  {
     slug: "mcp-supply-chain",
     title: "MCP To A2A",
     description:
-      "A 10-part series building toward an AI-powered supply chain system using Model Context Protocol (MCP) and Agent-to-Agent (A2A) orchestration.",
+      "A completed 9-part series building toward an AI-powered supply chain system using Model Context Protocol (MCP) and Agent-to-Agent (A2A) orchestration. From raw stdio to a nine-agent autonomous mesh.",
     githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a",
     versions: [
       {
@@ -423,25 +268,191 @@ if abs(market_price - db_price) / db_price > THRESHOLD:
       },
       {
         version: "v0.9",
-        subtitle: "Orchestrator",
-        status: "in-progress",
-        whatChanged: "One master agent coordinates all others, handles failures gracefully.",
-        whatYouPublish: "\"The scorecard\" — every agent graded on reliability",
-      },
-      {
-        version: "v1.0",
-        subtitle: "Full Supply Chain",
-        status: "locked",
-        whatChanged: "Complete system: Inventory + Pricing + Order + Supplier + Finance + Orchestrator.",
-        whatYouPublish: "End-to-end demo: product goes out of stock -> restocked automatically, zero human input",
+        subtitle: "Full Pipeline",
+        status: "completed",
+        whatChanged: "The grand finale. Every agent from v0.1 to v0.8 runs together in a single pipeline. One message to Claude triggers a price sync, inventory check, supplier bidding, order confirmation and email alerts — end to end, fully automated.",
+        whatYouPublish: "v0.9 — Full Pipeline: One Claude Message, Nine Agents",
+        keyInsight: "MCP and A2A together cover the full stack — human → AI → agents → actions. One tool call can trigger a cascade across 9 agents, completely hiding the complexity from the user while delivering a fully automated supply chain workflow.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.9-Full-Pipeline",
+        analysisPath: "/results/mcp_v0.9.md",
+        architecture: {
+          description: "You ask Claude 'What's in my inventory?' and it triggers an MCP tool call. This initiates a Pricing sync, checks for low stock, runs parallel A2A bidding across Suppliers A, B, and C, confirms the order with the winner (Supplier B), and sends 4 HTML emails via the Notification Agent.",
+          imagePath: "/images/mcp_v0.9_architecture.png",
+        },
+        codeSnippet: `# Entry Point: Claude Tool triggers the 9-Agent Pipeline
+@mcp.tool()
+async def get_inventory():
+    # 1. Sync Market Prices (A2A)
+    await pricing_agent.sync()
+    
+    # 2. Check stock & trigger restock
+    items = db.get_low_stock()
+    for item in items:
+        # 3. Parallel Bidding + Ordering + Alerts (A2A)
+        await inventory_agent.orchestrate_restock(item)`,
+        result: "Successfully automated the entire supply chain. One message triggers 9 agents, resulting in price synchronization, supplier selection, and 4 automated emails in under 500ms protocol overhead (dominated by SMTP latency).",
       },
     ],
   },
-  // To add a new series, copy the structure above and change the slug, title, etc.
-  // Example:
-  // {
-  //   slug: "agents",
+  {
+    slug: "rag",
+    title: "Vector-2-Graph RAG",
+    description:
+      "A 10-part deep dive into Retrieval-Augmented Generation — evolving from raw vector retrieval to structured graph-based knowledge synthesis. Every version ships. Every lesson is documented.",
+    githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG",
+    versions: [
+      {
+        version: "v0.1",
+        subtitle: "Baby RAG",
+        status: "completed",
+        whatChanged: "Raw implementation, no frameworks. Built TF-IDF, cosine similarity, and chunking from scratch using only NumPy.",
+        whatYouPublish: "I built RAG with just NumPy. Here's what I learned.",
+        keyInsight: "Understanding the math behind retrieval is more valuable than any framework. TF-IDF alone gets you surprisingly far on domain-specific text.",
+        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.1-Baby-RAG",
+        pdfPath: "/pdfs/rag/v0.1.pdf",
+        analysisPath: "/results/v0.1.md",
+        codeSnippet: `# Cosine Similarity — the heart of retrieval
+def cosine_similarity(vec_a, vec_b):
+    dot  = np.dot(vec_a, vec_b)
+    norm = np.linalg.norm(vec_a) * np.linalg.norm(vec_b)
+    return 0.0 if norm == 0 else dot / norm`,
+        result: "Achieved 0.35 average cosine similarity on the demo corpus with pure TF-IDF vectors. Faithfulness score of 1.0 — the LLM stays grounded when given good context.",
+      },
+      {
+        version: "v0.2",
+        subtitle: "Chunking Comparator",
+        status: "completed",
+        whatChanged: "Tested 4 chunking strategies — fixed-size, sentence-based, paragraph-based, and semantic. Built a side-by-side comparator UI.",
+        whatYouPublish: "Benchmark table: strategy vs. retrieval accuracy",
+        keyInsight: "Paragraph-based splitting beats Fixed-size for structured documents when using sparse retrievers (TF-IDF). Semantic chunking requires neural embeddings to truly outshine simple splits.",
+        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.2-Chunking-Comparator",
+        pdfPath: "/pdfs/rag/v0.2.pdf",
+        analysisPath: "/results/v0.2.md",
+        codeSnippet: `# Multi-strategy chunking
+def chunk(self, text, strategy="fixed_size"):
+    if strategy == "paragraph":
+        return re.split(r'\\n\\s*\\n', text.strip())
+    # ... other strategies`,
+        result: "Paragraph-based strategy achieved 100% Hit Rate on the demo corpus. Fixed-size (baseline) hit 20%, while Sentence/Semantic splits failed due to sparse vector collisions.",
+      },
+      {
+        version: "v0.3",
+        subtitle: "Full App & Persistence",
+        status: "completed",
+        whatChanged: "Modernized into a robust app with PDF support, disk-backed persistence (NumPy/JSON), and Neural Embeddings as the default.",
+        whatYouPublish: "Neural retrieval vs. TF-IDF baseline + Persistence breakdown",
+        keyInsight: "Neural embeddings (MiniLM) solved the 0% Hit Rate bottleneck for small semantic chunks. Persistence reduced 'warm-up' latency from 10s to 2ms.",
+        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.3-Full-App",
+        pdfPath: "/pdfs/rag/v0.3.pdf",
+        analysisPath: "/results/v0.3.md",
+        codeSnippet: `# Persistent Vector Store
+def save(self, path):
+    np.save(os.path.join(path, "matrix.npy"), self.matrix)
+    with open(os.path.join(path, "metadata.json"), "w") as f:
+        json.dump(meta, f)`,
+        result: "Neural retrieval achieved 100% Hit Rate on paragraph splits. Persistence enabled instant knowledge base reloading across sessions.",
+      },
+      {
+        version: "v0.4",
+        subtitle: "Hybrid Search",
+        status: "in-progress",
+        whatChanged: "Added BM25 alongside dense retrieval, fused results using Reciprocal Rank Fusion (RRF).",
+        whatYouPublish: "Precision/recall comparison chart",
+        keyInsight: "BM25 catches exact keyword matches that dense retrieval misses. RRF fusion gives you the best of both worlds with zero learned parameters.",
+        githubUrl: "https://github.com/Adithyan0122/Vector-To-Graph-RAG/tree/main/v0.4-Hybrid-Search", // Assumed path
+        pdfPath: "/pdfs/rag/v0.4.pdf",
+        codeSnippet: `# Reciprocal Rank Fusion
+RRF_score(d) = Σ 1 / (k + rank_i(d))
+# k=60 is standard, merge rankings from BM25 + dense`,
+        result: "Hybrid search improved recall@5 by 31% over dense-only retrieval. The fusion was especially effective on technical queries with specific terminology.",
+      },
+      {
+        version: "v0.5",
+        subtitle: "Query Transform",
+        status: "locked",
+        whatChanged: "Implemented HyDE (Hypothetical Document Embeddings), multi-query expansion, and query rewriting using the LLM.",
+        whatYouPublish: "Side-by-side query result comparisons",
+        keyInsight: "HyDE is magic for vague queries — generating a hypothetical answer and searching for it retrieves far better context than the raw question.",
+        githubUrl: "",
+        pdfPath: "/pdfs/rag/v0.5.pdf",
+        codeSnippet: `# HyDE: search with a hypothetical answer
+hypothetical = llm.generate(f"Answer: {query}")
+results = retriever.search(embed(hypothetical))`,
+        result: "HyDE improved MRR by 0.18 on ambiguous queries. Multi-query helped on complex questions but added 2-3x latency.",
+      },
+      {
+        version: "v0.6",
+        subtitle: "Reranking",
+        status: "locked",
+        whatChanged: "Added a cross-encoder reranker on top of the bi-encoder retriever. The reranker scores each (query, chunk) pair jointly.",
+        whatYouPublish: "Reranker impact on top-1 accuracy",
+        keyInsight: "Cross-encoders are slow but devastatingly accurate. Retrieve 20 with bi-encoder, rerank to top 3 with cross-encoder — best of both worlds.",
+        githubUrl: "",
+        pdfPath: "/pdfs/rag/v0.6.pdf",
+        codeSnippet: `# Two-stage retrieval
+candidates = bi_encoder.retrieve(query, k=20)
+reranked = cross_encoder.rerank(query, candidates, k=3)`,
+        result: "Top-1 accuracy jumped from 52% to 78% after reranking. The 200ms reranking latency was acceptable for the quality gain.",
+      },
+      {
+        version: "v0.7",
+        subtitle: "Evaluation",
+        status: "locked",
+        whatChanged: "Implemented RAGAS-style evaluation metrics across all previous versions. Built an automated benchmark suite.",
+        whatYouPublish: 'The "scorecard" — every version graded',
+        keyInsight: "You can't improve what you don't measure. Automated evaluation revealed that v0.5 (query transform) was actually the biggest single improvement.",
+        githubUrl: "",
+        pdfPath: "/pdfs/rag/v0.7.pdf",
+        codeSnippet: `# The 5 Core Metrics
+Hit Rate    = correct_in_top_k / total_queries
+MRR         = mean(1 / rank_of_correct)
+Faithfulness = supported_facts / total_facts
+Relevance   = cosine(answer, question)
+Precision   = useful_chunks / retrieved_chunks`,
+        result: "Complete scorecard across v0.1–v0.6. v0.5+v0.6 combo achieved: Hit Rate 0.91, MRR 0.84, Faithfulness 0.96.",
+      },
+      {
+        version: "v0.8",
+        subtitle: "Hierarchical",
+        status: "locked",
+        whatChanged: "Multi-document, large corpus. Hierarchical indexing with document-level and chunk-level retrieval.",
+        whatYouPublish: "Scaling curve: flat vs hierarchical at N docs",
+        keyInsight: "",
+        githubUrl: "",
+        pdfPath: "",
+        codeSnippet: "",
+        result: "",
+      },
+      {
+        version: "v0.9",
+        subtitle: "Agentic",
+        status: "locked",
+        whatChanged: "Iterative retrieval, self-correction. The system decides when to re-retrieve and when to answer.",
+        whatYouPublish: "Latency vs. accuracy tradeoff curve",
+        keyInsight: "",
+        githubUrl: "",
+        pdfPath: "",
+        codeSnippet: "",
+        result: "",
+      },
+      {
+        version: "v1.0",
+        subtitle: "GraphRAG",
+        status: "locked",
+        whatChanged: "Knowledge graph + vector hybrid. Entity extraction, relation mapping, graph traversal for retrieval.",
+        whatYouPublish: "Taxonomy of when graph beats vector",
+        keyInsight: "",
+        githubUrl: "",
+        pdfPath: "",
+        codeSnippet: "",
+        result: "",
+      },
+    ],
+  },
 ];
+
+// To add a new series, copy the structure above and change the slug, title, etc.
+
 
 export const majorProjectsData = [
   {
