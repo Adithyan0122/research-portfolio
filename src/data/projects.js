@@ -382,14 +382,28 @@ async def get_inventory():
       {
         version: "v0.7",
         subtitle: "Supplier Agents",
-        status: "in-progress",
-        whatChanged: "Build 3 mock Supplier Agents that respond to bid requests via A2A.",
-        whatYouPublish: "Comparison: which supplier agent design scaled best",
+        status: "completed",
+        whatChanged: "Implemented a live bidding system where the Inventory Agent sends parallel bid requests to three Supplier Agents, scores them based on a weighted formula, and picks a winner.",
+        whatYouPublish: "v0.7 — Supplier Agents: Three Agents Competing for Bids",
+        keyInsight: "Deadlines are filters, not scores. A supplier with the best price (Supplier C) is useless if they can't meet the hard delivery constraint. Parallelism reduces bidding latency from sequential sum to max-of-one.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.7-Supplier-Agents",
+        analysisPath: "/results/mcp_v0.7.md",
+        architecture: {
+          description: "A competitive multi-agent flow. The Inventory Agent orchestrates parallel A2A bid requests to Suppliers A, B, and C. It applies a 50/30/20 weighted scoring model to select the winning bid based on price, delivery, and reliability.",
+          imagePath: "/images/mcp_v0.7_architecture.png",
+        },
+        codeSnippet: `# Weighted Bidding Formula
+score = (0.5 * price_ratio) + (0.3 * delivery_ratio) + (0.2 * (1 - reliability))
+
+# Parallel Bid Collection
+with ThreadPoolExecutor() as executor:
+    bids = list(executor.map(fetch_bid, supplier_urls))`,
+        result: "Successfully implemented autonomous decision-making. Supplier B emerged as the consistent winner due to its balanced profile, while the system achieved ~39ms bidding latency with cached Agent Cards.",
       },
       {
         version: "v0.8",
         subtitle: "Pricing Agent",
-        status: "locked",
+        status: "in-progress",
         whatChanged: "Dynamic pricing logic: connects via MCP to market API, adjusts in real-time.",
         whatYouPublish: "Latency vs. accuracy tradeoff curve",
       },
