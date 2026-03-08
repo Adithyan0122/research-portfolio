@@ -329,14 +329,37 @@ agent_card = response.json()`,
       {
         version: "v0.5",
         subtitle: "Agent Cards",
-        status: "in-progress",
-        whatChanged: "Build proper Agent Cards for 3 agents, test discovery between them.",
-        whatYouPublish: "\"How Agent Cards work — and where they break\"",
+        status: "completed",
+        whatChanged: "Built three production-grade agents (Inventory, Order, Notification) that discover each other via rich Agent Cards and coordinate a full restock workflow autonomously.",
+        whatYouPublish: "v0.5 — Agent Cards: Three Agents Discovering Each Other",
+        keyInsight: "Agent Cards are contracts, not guarantees. While they provide machine-readable schemas (OpenAPI for agents), they don't yet enforce validation or versioning at the protocol level.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v0.5-Agent-Cards",
+        analysisPath: "/results/mcp_v0.5.md",
+        architecture: {
+          description: "A three-agent mesh using A2A discovery. Each agent (Inventory, Order, Notification) publishes an Agent Card at `/.well-known/agent.json`. The Inventory Agent orchestrates by fetching these cards once and caching them for subsequent calls.",
+          imagePath: "/images/mcp_v0.5_architecture.png",
+        },
+        codeSnippet: `# Rich Agent Card Skill Schema
+{
+  "name": "place_order",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "product":  { "type": "string" },
+      "quantity": { "type": "integer" }
+    }
+  }
+}
+
+# A2A Discovery Caching
+if not agent_card_cache.get(agent_url):
+    agent_card_cache[agent_url] = await fetch_card(agent_url)`,
+        result: "Autonomous coordination between 3 agents completed with $0 cost. Discovery latency was ~53ms total, while email sending via Gmail SMTP became the primary bottleneck (~4s per-call).",
       },
       {
         version: "v0.6",
         subtitle: "MCP + A2A Together",
-        status: "locked",
+        status: "in-progress",
         whatChanged: "Inventory Agent (MCP -> DB) triggers Order Agent (A2A) automatically.",
         whatYouPublish: "Architecture diagram + flow walkthrough video",
       },
