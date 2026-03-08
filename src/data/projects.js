@@ -292,6 +292,23 @@ async def get_inventory():
         await inventory_agent.orchestrate_restock(item)`,
         result: "Successfully automated the entire supply chain. One message triggers 9 agents, resulting in price synchronization, supplier selection, and 4 automated emails in under 500ms protocol overhead (dominated by SMTP latency).",
       },
+      {
+        version: "v1.0",
+        subtitle: "Final Milestone",
+        status: "completed",
+        whatChanged: "The culmination of the 9-part series. A state-of-the-art Multi-Agent AI Supply Chain System deployed with a modern Next.js 14 frontend dashboard. It orchestrates 9 specialized AI agents to autonomously handle the entire supply lifecycle.",
+        whatYouPublish: "v1.0 — The AI Supply Chain Engine is Complete.",
+        keyInsight: "When multiple specialized agents coordinate via event-driven mechanisms (Celery/Redis) rather than monolithic loops, resilience and throughput scale natively. The system acts as a fully self-healing pipeline.",
+        githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a/tree/main/v1.0",
+        architecture: {
+          description: "A comprehensive microservices architecture featuring 9 distinct FastAPI agents communicating over Redis pub/sub and Celery. Fronted by a Next.js dashboard visualising operations in real-time.",
+          imagePath: "/images/dashboard_1.png",
+        },
+        codeSnippet: `# Final Pipeline orchestrated across 9 Agents using A2A and MCP
+# Market -> Pricing -> Inventory 
+#               \\ -> Supplier A/B/C -> Order -> Finance -> Notification`,
+        result: "A fully autonomous, self-healing pipeline that tracks volatile markets, dynamically adjusts pricing, initiates inventory stock re-orders, and negotiates with multiple active suppliers.",
+      },
     ],
   },
   {
@@ -480,6 +497,36 @@ selection = json.loads(raw_response.content)
       ],
       details: "By keeping the processing local and the reasoning visual, it provides a trustworthy, privacy-first tool. Evaluated against ChatGPT and Open Targets, it outperforms general LLMs on grounded truth and outperforms curated databases on flexibility.",
       imagePath: "/images/genomic_navigator.png"
+    }
+  },
+  {
+    slug: "ai-supply-chain-v1",
+    title: "AI Supply Chain System v1.0",
+    description: "Multi-Agent AI Supply Chain System leveraging Model Context Protocol (MCP) and Agent-to-Agent (A2A) communication.",
+    githubUrl: "https://github.com/Adithyan0122/mcp-to-a2a",
+    overview: "Orchestrates 9 independent Python FastAPI microservices acting as specialized AI agents. The system handles dynamic pricing against market volatility, real-time supplier negotiation, intelligent inventory management outlasting dynamic thresholds, and robust financial approvals. Built with Google Gemini 2.5 Flash, PostgreSQL (pgvector), Celery, Redis, and a sleek Next.js 14 frontend.",
+    videoPath: "",
+    architecture: {
+      description: "A fully autonomous, self-healing pipeline with specialized agents (Pricing, Inventory, Supplier, Order, Finance, Notification) working in a continuous loop utilizing a shared market API and a central PostgreSQL DB. Built on an event-driven architecture using Celery and Redis.",
+      imagePath: "/images/mcp_v0.9_architecture.png",
+      codeSnippet: `# Dockerized environment for the 9-agent mesh network
+services:
+  inventory-agent:
+    build: backend/inventory-agent
+  pricing-agent:
+    build: backend/pricing-agent
+  order-agent:
+    build: backend/order-agent
+# ... orchestrating autonomous operations via A2A.`
+    },
+    analysis: {
+      metrics: [
+        { label: "AI Model", value: "Google Gemini 2.5 Flash" },
+        { label: "Microservices", value: "9 Autonomous Agents" },
+        { label: "Infrastructure", value: "PostgreSQL, Celery, Redis" },
+      ],
+      details: "The system effectively demonstrates the power of A2A orchestration intertwined with MCP. It reduces human-in-the-loop dependencies entirely, functioning smoothly to maintain optimal stock and handle multi-agent bidding. The dynamic Dashboard captures live negotiations, simulated market drifts, and ongoing financial tracking efficiently.",
+      imagePath: "/images/dashboard_3.png"
     }
   }
 ];
