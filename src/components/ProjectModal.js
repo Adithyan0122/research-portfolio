@@ -7,8 +7,8 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import styles from "./ProjectModal.module.css";
 
-const DEFAULT_TABS = ["Overview", "Math", "Code", "Results"];
-const ARCH_TABS = ["Overview", "Architecture", "Math", "Code", "Results"];
+const DEFAULT_TABS = ["Overview", "Paper", "Code", "Results"];
+const ARCH_TABS = ["Overview", "Architecture", "Paper", "Code", "Results"];
 
 export default function ProjectModal({ version, onClose }) {
     const [activeTab, setActiveTab] = useState("Overview");
@@ -55,7 +55,7 @@ export default function ProjectModal({ version, onClose }) {
                     {/* Tabs */}
                     <div className={styles.tabs}>
                         {(version.architecture ? ARCH_TABS : DEFAULT_TABS)
-                            .filter(tab => tab !== "Math" || version.pdfPath)
+                            .filter(tab => tab !== "Paper" || version.pdfPath)
                             .map((tab) => (
                                 <button
                                     key={tab}
@@ -71,7 +71,7 @@ export default function ProjectModal({ version, onClose }) {
                     <div className={styles.tab_content}>
                         {activeTab === "Overview" && <OverviewTab version={version} />}
                         {activeTab === "Architecture" && <ArchitectureTab version={version} />}
-                        {activeTab === "Math" && <MathTab version={version} />}
+                        {activeTab === "Paper" && <PaperTab version={version} />}
                         {activeTab === "Code" && <CodeTab version={version} />}
                         {activeTab === "Results" && <ResultsTab version={version} />}
                     </div>
@@ -121,7 +121,7 @@ function ArchitectureTab({ version }) {
     );
 }
 
-function MathTab({ version }) {
+function PaperTab({ version }) {
     if (version.pdfPath) {
         return (
             <>

@@ -29,9 +29,6 @@ export default function Footer() {
                         ✉ Email
                     </a>
                 </div>
-                <p className={styles.footer__tagline}>
-                    Every version shipped. Every lesson documented. ∇L → 0
-                </p>
             </div>
         </footer>
     );

@@ -29,12 +29,7 @@ export default function About() {
                 <FadeIn>
                     <p className="section-label">§ About</p>
                     <div className={styles.identity}>
-                        <div className={styles.identity__photo}>
-                            {/* TODO: replace with <img src={identity.photo} alt={identity.name} /> when you add a photo */}
-                            👤
-                        </div>
                         <div className={styles.identity__info}>
-                            <h2>{identity.name}</h2>
                             <p>{identity.bio}</p>
                         </div>
                     </div>

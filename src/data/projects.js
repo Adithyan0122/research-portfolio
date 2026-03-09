@@ -17,8 +17,6 @@ export const siteConfig = {
 export const aboutData = {
   // TODO: replace with your bio
   identity: {
-    name: "Dhanush Adithyan",
-    photo: "/images/profile.jpg", // TODO: add your photo to public/images/
     bio: "",
   },
 
@@ -27,13 +25,11 @@ export const aboutData = {
       institution: "UVCE, Bangalore",
       degree: "B.Tech in Artificial Intelligence & Machine Learning",
       years: "2021 — 2025", // Guessed years based on internships
-      highlight: "Major in AIML, actively involved in IEEE UVCE coding community.",
     },
     {
       institution: "Excel Public School, Mysore",
       degree: "High School",
       years: "2019 — 2021",
-      highlight: "Foundation in science and mathematics.",
     },
   ],
 
@@ -66,7 +62,6 @@ export const aboutData = {
   ],
 
   hobbies: [
-    { icon: "🎸", label: "Music Production" },
     { icon: "🏊", label: "Swimming" },
     { icon: "⚽", label: "Football" },
     { icon: "🎸", label: "Guitar" },

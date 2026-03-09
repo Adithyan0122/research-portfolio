@@ -1,5 +1,4 @@
 import './globals.css';
-import MathBackground from '@/components/MathBackground';
 
 export const metadata = {
   title: 'Adithyan — AI Research Portfolio',
@@ -10,7 +9,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <MathBackground />
         {children}
       </body>
     </html>
