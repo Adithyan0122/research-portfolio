@@ -19,7 +19,7 @@ export default function HomePage() {
             <p className="section-label" style={{ color: 'var(--teal)' }}>§ Major Projects</p>
             <h2 className="section-title">Standalone Research</h2>
             <p className="section-subtitle">
-              Comprehensive end-to-end AI systems and investigations. Click to view architecture and analysis.
+              Click to view architecture and analysis.
             </p>
           </div>
           <div className={styles.grid}>

@@ -19,7 +19,7 @@ export const aboutData = {
   identity: {
     name: "Dhanush Adithyan",
     photo: "/images/profile.jpg", // TODO: add your photo to public/images/
-    bio: "I'm a researcher and engineer obsessed with building AI systems from first principles. I believe in learning by building — every component, every formula, every failure. This portfolio documents that journey, version by version.",
+    bio: "",
   },
 
   education: [
